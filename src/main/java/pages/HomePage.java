@@ -1,19 +1,17 @@
 package pages;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-import org.openqa.selenium.WebDriver;
 
 public class HomePage extends BasePage {
 
     @FindBy(xpath = "//a[@href='/home']")
     WebElement homeHeaderLink;
-
     @FindBy(xpath = "//a[@href='/about']")
     WebElement aboutHeaderLink;
-
     @FindBy(xpath = "//a[@href='/login']")
     WebElement loginHeaderLink;
 
