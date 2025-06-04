@@ -3,20 +3,39 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
-public class ContactsPage extends BasePage{
+public class ContactsPage extends BasePage {
 
-    public ContactsPage(WebDriver driver){
+    public ContactsPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);
     }
 
-    @FindBy(xpath = "//a[@href='/contacts']")
-    WebElement btnContactsHeader;
+    @FindBy(xpath = "//h1[contains(text(), 'No Contacts here!')]")
+    WebElement noContactsMsg;
 
-    public boolean isContactsPresent(){
-        return isElementPresent(btnContactsHeader);
+    @FindBy(xpath = "//div[@class='contact-item_card__2SOIM']")
+    WebElement contactsCards;
+
+    @FindBy(xpath = "//button[contains(text(), 'Edit')]")
+    WebElement editContactButton;
+
+    @FindBy(xpath = "//button[contains(text(), 'Remove')]")
+    WebElement deleteContactButton;
+
+    public boolean isContactsPageDisplayed() {
+        return isElementPresent(contactsCards);
+    }
+
+    public boolean isNoContactsMessageDisplayed() {
+        return isElementPresent(noContactsMsg);
+    }
+
+    public boolean isExpectedNoContactsTextPresent(String expectedMessage) {
+        return isTextInElementPresent(noContactsMsg, expectedMessage);
+    }
+
+    public void deleteContact() {
+        contactsCards.click();
+        deleteContactButton.click();
     }
 }

@@ -1,16 +1,16 @@
 package ui_tests;
 
 import manager.ApplicationManager;
-import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.HomePage;
 
 public class HomeTests extends ApplicationManager {
 
     @Test
-    public void homeHeaderLinkPositive(){
-        WebDriver driver = getDriver();
-        HomePage homePage = new HomePage(driver);
+    public void homeHeaderLinkPositive() {
+        HomePage homePage = new HomePage(getDriver());
         homePage.clickHomeHeaderLink();
+        Assert.assertTrue(homePage.isHomePageDisplayed());
     }
 }

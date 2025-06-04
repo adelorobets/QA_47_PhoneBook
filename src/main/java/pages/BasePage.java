@@ -2,28 +2,30 @@ package pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
-public class BasePage {
-
+public abstract class BasePage {
     protected WebDriver driver;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);
     }
 
-    public void pause(int time) {
+    public boolean isElementPresent(WebElement element) {
         try {
-            Thread.sleep(time * 1000L);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            return element.isDisplayed();
+        } catch (Exception e) {
+            return false;
         }
     }
 
-    public boolean isElementPresent(WebElement element){
-        return element.isDisplayed();
-    }
-
-    public boolean isTextInElementPresent(WebElement element, String text){
-        return element.getText().contains(text);
+    public boolean isTextInElementPresent(WebElement element, String text) {
+        try {
+            return element.getText().contains(text);
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
